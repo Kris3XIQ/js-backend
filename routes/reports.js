@@ -71,6 +71,27 @@ router.get("/week/1", async function(req, res) {
     });
 });
 
+router.post("/week/1", function(req, res) {
+    const path = req.body.path;
+    const header = req.body.header;
+    const content = req.body.content;
+    const token = getToken(req);
+    const decipherToken = jsonwebtoken.verify(token, SECRET_KEY);
+    if (!token || !decipherToken.id) {
+        console.log("notoken");
+        return res.status(401).json({ error: "Token is missing or is invalid " })
+    }
+
+    reportFunc.addReportContent([path, header, content, path], (err) => {
+        if (err) {
+            console.log("inne");
+            return res.status(500).send("Something on the server went wrong!");
+        }
+        res.status(200)
+            .redirect("/reports/week/1");
+    })
+});
+
 router.get("/week/2", function(req, res) {
     const reportData = {
         path: 2,
@@ -144,8 +165,6 @@ router.post("/week/3", function(req, res) {
         res.status(200)
             .redirect("/reports/week/3");
     })
-
-
 });
 
 router.get("/week/4", function(req, res) {
@@ -175,6 +194,27 @@ router.get("/week/4", function(req, res) {
     });
 });
 
+router.post("/week/4", function(req, res) {
+    const path = req.body.path;
+    const header = req.body.header;
+    const content = req.body.content;
+    const token = getToken(req);
+    const decipherToken = jsonwebtoken.verify(token, SECRET_KEY);
+    if (!token || !decipherToken.id) {
+        console.log("notoken");
+        return res.status(401).json({ error: "Token is missing or is invalid " })
+    }
+
+    reportFunc.addReportContent([path, header, content, path], (err) => {
+        if (err) {
+            console.log("inne");
+            return res.status(500).send("Something on the server went wrong!");
+        }
+        res.status(200)
+            .redirect("/reports/week/4");
+    })
+});
+
 router.get("/week/5", function(req, res) {
     const reportData = {
         path: 5,
@@ -202,6 +242,27 @@ router.get("/week/5", function(req, res) {
     });
 });
 
+router.post("/week/5", function(req, res) {
+    const path = req.body.path;
+    const header = req.body.header;
+    const content = req.body.content;
+    const token = getToken(req);
+    const decipherToken = jsonwebtoken.verify(token, SECRET_KEY);
+    if (!token || !decipherToken.id) {
+        console.log("notoken");
+        return res.status(401).json({ error: "Token is missing or is invalid " })
+    }
+
+    reportFunc.addReportContent([path, header, content, path], (err) => {
+        if (err) {
+            console.log("inne");
+            return res.status(500).send("Something on the server went wrong!");
+        }
+        res.status(200)
+            .redirect("/reports/week/5");
+    })
+});
+
 router.get("/week/6", function(req, res) {
     const reportData = {
         path: 6,
@@ -227,6 +288,27 @@ router.get("/week/6", function(req, res) {
         }
         res.json({ data: reportData })
     });
+});
+
+router.post("/week/6", function(req, res) {
+    const path = req.body.path;
+    const header = req.body.header;
+    const content = req.body.content;
+    const token = getToken(req);
+    const decipherToken = jsonwebtoken.verify(token, SECRET_KEY);
+    if (!token || !decipherToken.id) {
+        console.log("notoken");
+        return res.status(401).json({ error: "Token is missing or is invalid " })
+    }
+
+    reportFunc.addReportContent([path, header, content, path], (err) => {
+        if (err) {
+            console.log("inne");
+            return res.status(500).send("Something on the server went wrong!");
+        }
+        res.status(200)
+            .redirect("/reports/week/6");
+    })
 });
 
 module.exports = router;
