@@ -2,20 +2,20 @@
  * Express server | Backend me-API
  */
 
-"use strict"
+"use strict";
 
 const port = 3080;
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 // const morgan = require("morgan");
-const SECRET_KEY = require("./config/config");
+// const SECRET_KEY = require("./config/config");
 const routeIndex = require("./routes/index");
 const routeReports = require("./routes/reports");
 const routeAccount = require("./routes/account");
 const middleware = require("./middleware/index");
-
 const app = express();
+
 app.use(cors());
 
 app.use(middleware.logIncomingToConsole);
@@ -24,7 +24,9 @@ app.use("/", routeIndex);
 app.use("/reports", routeReports);
 app.use("/account", routeAccount);
 
-app.listen(port, logStartUpDetailsToConsole);
+if (process.env.NODE_ENV !== "test") {
+    app.listen(port, logStartUpDetailsToConsole);
+}
 /**
  * Log app details to console when starting up.
  *
@@ -53,3 +55,7 @@ function logStartUpDetailsToConsole() {
     console.info("Available routes are:");
     console.info(routes);
 }
+
+const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+module.exports = server;

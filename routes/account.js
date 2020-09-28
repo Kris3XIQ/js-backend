@@ -18,6 +18,7 @@ router.use(cookieParser());
 
 router.get("/register", (req, res) => {
     let response = "Not logged in";
+
     if (req.cookies.accessToken == "true") {
         response = "Yup! You're logged in";
     }
@@ -42,16 +43,23 @@ router.post("/register", (req, res) => {
             const accessToken = jsonwebtoken.sign({ id: user.id }, SECRET_KEY, {
                 expiresIn: expiresIn
             });
+
             // Everything went through, send OK status
             res.status(200)
                 .cookie("accessToken", accessToken, { maxAge: expiresIn, httpOnly: true })
-                .send({ "user": user, "access_token": accessToken, "expires_in": expiresIn, "accessToken": accessToken });
+                .send({
+                    "user": user,
+                    "access_token": accessToken,
+                    "expires_in": expiresIn,
+                    "accessToken": accessToken
+                });
         });
     });
 });
 
 router.get("/login", (req, res) => {
     let response = "Not logged in";
+
     if (req.cookies.accessToken == "true") {
         response = "Yup! You're logged in";
     }
@@ -71,6 +79,7 @@ router.post("/login", (req, res) => {
             return res.status(404).send("User doesnt exist!");
         }
         const compare = bcrypt.compareSync(password, user.password);
+
         // Compare password with the registered account, throw 401 if it doesnt
         if (!compare) {
             return res.status(401).send("Password doesnt match!");
@@ -79,6 +88,7 @@ router.post("/login", (req, res) => {
         const accessToken = jsonwebtoken.sign({ id: user.id }, SECRET_KEY, {
             expiresIn: expiresIn
         });
+
         // Everything went through, send OK status
         res.cookie("accessToken", accessToken, { httpOnly: true });
         res.status(200)

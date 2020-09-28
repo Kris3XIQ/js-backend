@@ -16,6 +16,7 @@ router.get("/", function(req, res) {
             "spel med polarna. Utöver det så ser jag fram emot att få utöka mina " +
             "kunskaper inom programmering nu under hösten!"
     };
+
     res.json(data);
 });
 
