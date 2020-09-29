@@ -2,7 +2,8 @@
  * Routes for users me-api.
  */
 "use strict";
-const SECRET_KEY = require("../config/config");
+// const SECRET_KEY = require("../config/config");
+const SECRET_KEY = process.env.SECRET_KEY;
 
 const express = require("express");
 const router = express.Router();
