@@ -11,7 +11,7 @@ const reportFunc = require("../models/report");
 const bodyParser = require("body-parser");
 
 if (process.env.NODE_ENV === "test") {
-    SECRET_KEY = "123451234512345123451234512345123451234512345";
+    var SECRET_KEY = "123451234512345123451234512345123451234512345";
 }
 
 router.use(bodyParser.urlencoded({ extended: false }));
