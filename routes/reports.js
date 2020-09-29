@@ -5,7 +5,7 @@
 
 const express = require("express");
 const jsonwebtoken = require("jsonwebtoken");
-const SECRET_KEY = require("../config/config");
+// const SECRET_KEY = require("../config/config");
 const router = express.Router();
 const reportFunc = require("../models/report");
 const bodyParser = require("body-parser");

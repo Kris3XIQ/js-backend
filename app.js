@@ -2,7 +2,7 @@
  * Express server | Backend me-API
  */
 
-"use strict";
+"use strict"
 
 const port = 3080;
 const express = require("express");
