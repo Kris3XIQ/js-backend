@@ -51,8 +51,7 @@ router.get("/week", (req, res) => {
     {
         header: "TestHeader",
         text: "HereIsMoreText HereIsMoreText HereIsMoreText"
-        }
-    ];
+    }];
 
     res.json({ data: reportContent });
 });

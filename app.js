@@ -25,10 +25,9 @@ app.use("/", routeIndex);
 app.use("/reports", routeReports);
 app.use("/account", routeAccount);
 
-// if (process.env.NODE_ENV !== "test") {
-//     
-// }
-app.listen(port, logStartUpDetailsToConsole);
+if (process.env.NODE_ENV !== "test") {
+    app.listen(port, logStartUpDetailsToConsole);
+}
 
 /**
  * Log app details to console when starting up.
@@ -59,6 +58,6 @@ function logStartUpDetailsToConsole() {
     console.info(routes);
 }
 
-// const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-// module.exports = server;
+module.exports = server;
