@@ -6,13 +6,11 @@
 const express = require("express");
 const jsonwebtoken = require("jsonwebtoken");
 // const SECRET_KEY = require("../config/config");
+const SECRET_KEY = process.env.SECRET_KEY;
 const router = express.Router();
 const reportFunc = require("../models/report");
 const bodyParser = require("body-parser");
 
-if (process.env.NODE_ENV === "test") {
-    var SECRET_KEY = "123451234512345123451234512345123451234512345";
-}
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());

@@ -5,6 +5,7 @@
 "use strict"
 
 const port = 3080;
+require('dotenv').config()
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
