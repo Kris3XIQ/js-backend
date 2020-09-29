@@ -23,7 +23,6 @@ describe("Reports", () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.data.path.should.equal(1);
-                    res.body.data.header.should.equal("Kmom 01");
 
                     done();
                 });
