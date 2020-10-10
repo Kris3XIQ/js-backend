@@ -52,8 +52,8 @@ if (process.env.NODE_ENV !== "test") {
         return prettyNow;
     }
 } else {
-    const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-    module.exports = server;
+    const testserver = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+    module.exports = testserver;
 }
 
 /**
