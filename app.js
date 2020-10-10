@@ -20,6 +20,8 @@ const routeReports = require("./routes/reports");
 const routeAccount = require("./routes/account");
 const middleware = require("./middleware/index");
 
+const getTime = require("./models/time.js");
+
 app.use(cors());
 
 app.use(middleware.logIncomingToConsole);
@@ -33,27 +35,24 @@ app.use("/account", routeAccount);
 // }
 if (process.env.NODE_ENV !== "test") {
     io.on("connect", function(socket) {
-        const { id } = socket.client;
         const time = new Date;
-        const now = getTimeStamp(time);
+        const now = getTime.getTimeStamp(time);
+
         socket.on("chat message", ({ nick, msg }) => {
             io.emit("chat message", { now, nick, msg });
         });
     });
 
-    function getTimeStamp(date) {
-        let hours = date.getHours();
-        let minutes = date.getMinutes();
-        let ampm = hours >= 12 ? 'pm' : 'am';
-        hours = hours % 12;
-        hours = hours ? hours : 12;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        let prettyNow = hours + ':' + minutes + ' ' + ampm;
-        return prettyNow;
-    }
-} else {
-    const testserver = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-    module.exports = testserver;
+    // function getTimeStamp(date) {
+    //     let hours = date.getHours();
+    //     let minutes = date.getMinutes();
+    //     let ampm = hours >= 12 ? 'pm' : 'am';
+    //     hours = hours % 12;
+    //     hours = hours ? hours : 12;
+    //     minutes = minutes < 10 ? '0' + minutes : minutes;
+    //     let prettyNow = hours + ':' + minutes + ' ' + ampm;
+    //     return prettyNow;
+    // }
 }
 
 /**
@@ -85,6 +84,6 @@ function logStartUpDetailsToConsole() {
     console.info(routes);
 }
 
-// const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+// const testserver = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-// module.exports = server;
+module.exports = server;
