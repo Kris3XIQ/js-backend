@@ -8,8 +8,11 @@ require('dotenv').config();
 const port = 3080;
 const express = require("express");
 const app = express();
-const server = app.listen(port, logStartUpDetailsToConsole);
-const io = require("socket.io")(server, { origins: "*:*" });
+// const server = app.listen(port, logStartUpDetailsToConsole);
+// const io = require("socket.io")(server, { origins: "*:*" });
+const server = require("http").createServer(app)
+const io = require("socket.io")(server, { origins: "*:*" })
+
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 // const morgan = require("morgan");
@@ -85,5 +88,5 @@ function logStartUpDetailsToConsole() {
 }
 
 // const testserver = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
+server.listen(port, logStartUpDetailsToConsole);
 module.exports = server;
