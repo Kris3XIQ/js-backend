@@ -14,6 +14,7 @@ const server = require("http").createServer(app);
 const io = require("socket.io")(server, { origins: "*:*" });
 
 const cookieParser = require("cookie-parser");
+const dbfunc = require("./db/dbfunctions.js");
 const cors = require("cors");
 // const morgan = require("morgan");
 // const SECRET_KEY = require("./config/config");
@@ -21,6 +22,7 @@ const cors = require("cors");
 const routeIndex = require("./routes/index");
 const routeReports = require("./routes/reports");
 const routeAccount = require("./routes/account");
+const routeChat = require("./routes/chat");
 const middleware = require("./middleware/index");
 
 const getTime = require("./models/time.js");
@@ -32,9 +34,20 @@ app.use(cookieParser());
 app.use("/", routeIndex);
 app.use("/reports", routeReports);
 app.use("/account", routeAccount);
+app.use("/chat", routeChat);
 
 // if (process.env.NODE_ENV !== "test") {
 //     app.listen(port, logStartUpDetailsToConsole);
+// }
+// if (process.env.NODE_ENV !== "test") {
+//     io.on("connect", function(socket) {
+//         const time = new Date;
+//         const now = getTime.getTimeStamp(time);
+
+//         socket.on("chat message", ({ nick, msg }) => {
+//             io.emit("chat message", { now, nick, msg });
+//         });
+//     });
 // }
 if (process.env.NODE_ENV !== "test") {
     io.on("connect", function(socket) {
@@ -43,19 +56,11 @@ if (process.env.NODE_ENV !== "test") {
 
         socket.on("chat message", ({ nick, msg }) => {
             io.emit("chat message", { now, nick, msg });
+            if (nick != "") {
+                dbfunc.addEntry({ now, nick, msg });
+            }
         });
     });
-
-    // function getTimeStamp(date) {
-    //     let hours = date.getHours();
-    //     let minutes = date.getMinutes();
-    //     let ampm = hours >= 12 ? 'pm' : 'am';
-    //     hours = hours % 12;
-    //     hours = hours ? hours : 12;
-    //     minutes = minutes < 10 ? '0' + minutes : minutes;
-    //     let prettyNow = hours + ':' + minutes + ' ' + ampm;
-    //     return prettyNow;
-    // }
 }
 
 /**
