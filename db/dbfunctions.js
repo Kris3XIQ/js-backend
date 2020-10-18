@@ -9,13 +9,17 @@ const dsn = "mongodb://localhost:27017/chatwindow";
 
 async function addEntry(msg) {
     mongo.connect(dsn, function(err, db) {
-        if (err) throw err;
+        if (err) {
+            throw err;
+        }
         const dbo = db.db("chatwindow");
 
         dbo.collection("users").insertOne(msg, function(err, res) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            db.close()
+            if (err) {
+                console.log(res);
+                throw err;
+            }
+            db.close();
         });
     })
 }
@@ -28,7 +32,7 @@ async function printEntries(query) {
 
     await client.close();
 
-    return res;
+    return res
 };
 
 module.exports = {
