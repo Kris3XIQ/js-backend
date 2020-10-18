@@ -21,7 +21,7 @@ async function addEntry(msg) {
             }
             db.close();
         });
-    })
+    });
 }
 
 async function printEntries(query) {
@@ -32,8 +32,8 @@ async function printEntries(query) {
 
     await client.close();
 
-    return res
-};
+    return res;
+}
 
 module.exports = {
     addEntry: addEntry,
