@@ -31,3 +31,6 @@ INSERT INTO reports (path, header, content)
 
 INSERT INTO reports (path, header, content)
     VALUES (6, "No content yet!", "This path appears to be empty, for now...");
+
+INSERT INTO reports (path, header, content)
+    VALUES (10, "No content yet!", "This path appears to be empty, for now...");
