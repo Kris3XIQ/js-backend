@@ -45,13 +45,14 @@ router.post("/", (req, res) => {
 
 router.get("/week", (req, res) => {
     const reportContent = [{
-        header: "TestHeader",
-        text: "HereIsAllTheTextHereIsAllTheTextHereIsAllTheTextHereIsAllTheTextHereIsAllTheText"
-    },
-    {
-        header: "TestHeader",
-        text: "HereIsMoreText HereIsMoreText HereIsMoreText"
-    }];
+            header: "TestHeader",
+            text: "HereIsAllTheTextHereIsAllTheTextHereIsAllTheTextHereIsAllTheTextHereIsAllTheText"
+        },
+        {
+            header: "TestHeader",
+            text: "HereIsMoreText HereIsMoreText HereIsMoreText"
+        }
+    ];
 
     res.json({ data: reportContent });
 });
@@ -345,6 +346,60 @@ router.post("/week/6", function(req, res) {
         }
         res.status(200)
             .redirect("/reports/week/6");
+    });
+});
+
+router.get("/week/10", function(req, res) {
+    const reportData = {
+        path: 10,
+        header: "",
+        content: ""
+    };
+
+    reportFunc.getReportHeader(10, (err, header) => {
+        if (err) {
+            return res.status(500).send("Something on the server went wrong!");
+        }
+        // try {
+        //     reportData.header = header.header;
+        // } catch {
+        //     reportData.header = "No content";
+        // }
+        reportData.header = header.header;
+    });
+    reportFunc.getReportContent(10, (err, content) => {
+        if (err) {
+            return res.status(500).send("Something on the server went wrong!");
+        }
+        // try {
+        //     reportData.content = content.content;
+        // } catch {
+        //     reportData.content = "Woops, doesnt seem to tbe anything here!";
+        // }
+        reportData.content = content.content;
+        res.json({ data: reportData });
+    });
+});
+
+router.post("/week/10", function(req, res) {
+    const path = req.body.path;
+    const header = req.body.header;
+    const content = req.body.content;
+    const token = getToken(req);
+    const decipherToken = jsonwebtoken.verify(token, SECRET_KEY);
+
+    if (!token || !decipherToken.id) {
+        console.log("notoken");
+        return res.status(401).json({ error: "Token is missing or is invalid " });
+    }
+
+    reportFunc.addReportContent([path, header, content, path], (err) => {
+        if (err) {
+            console.log("inne");
+            return res.status(500).send("Something on the server went wrong!");
+        }
+        res.status(200)
+            .redirect("/reports/week/10");
     });
 });
 

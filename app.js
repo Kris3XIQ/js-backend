@@ -5,7 +5,8 @@
 "use strict";
 require('dotenv').config();
 
-const port = 3080;
+// const port = 3080;
+const port = 8333;
 const express = require("express");
 const app = express();
 // const server = app.listen(port, logStartUpDetailsToConsole);
