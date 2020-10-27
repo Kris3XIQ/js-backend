@@ -45,14 +45,13 @@ router.post("/", (req, res) => {
 
 router.get("/week", (req, res) => {
     const reportContent = [{
-            header: "TestHeader",
-            text: "HereIsAllTheTextHereIsAllTheTextHereIsAllTheTextHereIsAllTheTextHereIsAllTheText"
-        },
-        {
-            header: "TestHeader",
-            text: "HereIsMoreText HereIsMoreText HereIsMoreText"
-        }
-    ];
+        header: "TestHeader",
+        text: "HereIsAllTheTextHereIsAllTheTextHereIsAllTheTextHereIsAllTheTextHereIsAllTheText"
+    },
+    {
+        header: "TestHeader",
+        text: "HereIsMoreText HereIsMoreText HereIsMoreText"
+    }];
 
     res.json({ data: reportContent });
 });
